@@ -2,7 +2,7 @@
 import axios from "axios";
 import authService from "../services/authService";
 
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 // Base config
 const axiosInstance = axios.create({

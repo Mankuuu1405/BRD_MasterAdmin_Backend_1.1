@@ -20,7 +20,7 @@ const Sidebar = () => {
   const handleLogout = () => {
     localStorage.clear();
     sessionStorage.clear();
-    window.location.href = "/signup";
+    window.location.href = "/login";
   };
 
   const isActive = (path) =>

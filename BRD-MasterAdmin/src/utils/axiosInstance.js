@@ -1,10 +1,10 @@
 import axios from "axios";
 
 // .env से URL उठा रहा है
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const axiosInstance = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: `${BASE_URL}/api/v1`,
 });
 
 // हर Request में Token जोड़ने के लिए Interceptor
@@ -32,7 +32,7 @@ axiosInstance.interceptors.response.use(
       }
 
       try {
-        const res = await axios.post("/api/token/refresh/", { refresh });
+        const res = await axios.post(`${BASE_URL}/api/token/refresh/`, { refresh });
         localStorage.setItem("access_token", res.data.access);
         error.config.headers.Authorization = `Bearer ${res.data.access}`;
         return axiosInstance(error.config);

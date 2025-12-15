@@ -1,11 +1,11 @@
 import axios from "axios";
 import axiosInstance from "../utils/axiosInstance";
 
-const ROOT_URL = "http://127.0.0.1:8000";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const authService = {
   login: async (email, password) => {
-  const res = await axios.post(`${ROOT_URL}/api/token/master/`, { email, password });
+  const res = await axios.post(`${BASE_URL}/api/token/master/`, { email, password });
 
   if (res.data.requires_2fa) {
     return { requires2FA: true };
@@ -16,7 +16,7 @@ export const authService = {
 },
 
 verify2FA: async (email, code) => {
-  const res = await axios.post(`${ROOT_URL}/api/v1/users/2fa/login/`, {
+  const res = await axios.post(`${BASE_URL}/api/v1/users/2fa/login/`, {
     email,
     code,
   });
