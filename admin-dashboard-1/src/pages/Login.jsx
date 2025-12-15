@@ -62,7 +62,7 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const res = await axiosInstance.post(`${BASE_URL}/api/token/`, {
+      const res = await axiosInstance.post(`${BASE_URL}/api/token/tenant/`, {
         email: email.trim().toLowerCase(),
         password,
       });

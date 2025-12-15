@@ -5,7 +5,7 @@ const ROOT_URL = "http://127.0.0.1:8000";
 
 export const authService = {
   login: async (email, password) => {
-  const res = await axios.post(`${ROOT_URL}/api/token/`, { email, password });
+  const res = await axios.post(`${ROOT_URL}/api/token/master/`, { email, password });
 
   if (res.data.requires_2fa) {
     return { requires2FA: true };

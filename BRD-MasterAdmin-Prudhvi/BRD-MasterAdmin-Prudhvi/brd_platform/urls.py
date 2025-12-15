@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .views import home
-from users.views import CustomTokenObtainPairView
+from users.views import CustomTokenObtainPairView, MasterAdminLoginView, TenantLoginView
 # from adminpanel.views import SettingsView
 
 urlpatterns = [
@@ -14,6 +14,8 @@ urlpatterns = [
     # Authentication
     # path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/", CustomTokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/token/master/", MasterAdminLoginView.as_view()),
+    path("api/token/tenant/", TenantLoginView.as_view()),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 
     # App URLs

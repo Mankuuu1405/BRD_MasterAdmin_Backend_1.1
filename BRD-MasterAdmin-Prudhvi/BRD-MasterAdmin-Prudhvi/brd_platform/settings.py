@@ -73,6 +73,12 @@ MIDDLEWARE += ["axes.middleware.AxesMiddleware"]
 AXES_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 1  # hours
 
+AXES_EXCLUDE_URLS = [
+    r'^/api/token/$',
+    r'^/api/token/refresh/$',
+]
+
+
 
 ROOT_URLCONF = "brd_platform.urls"
 
@@ -149,6 +155,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3001",
     "http://127.0.0.1:3001",
     "http://localhost:5173",
+    "http://localhost:5174",
 ]
 
 # Add missing Vite origin

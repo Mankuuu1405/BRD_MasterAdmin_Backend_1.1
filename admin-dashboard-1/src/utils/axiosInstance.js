@@ -6,7 +6,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 // Base config
 const axiosInstance = axios.create({
-  baseURL: `${BASE_URL}/api/v1/`,
+  baseURL: `${BASE_URL}/api/v1`,
   withCredentials: false,
 });
 

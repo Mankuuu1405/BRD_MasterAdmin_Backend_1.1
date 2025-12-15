@@ -212,3 +212,74 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         )
 
         return data
+
+
+
+class MasterAdminTokenSerializer(TokenObtainPairSerializer):
+
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        token["role"] = user.role
+        token["tenant_id"] = user.tenant_id
+        return token
+
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        user = self.user
+        request = self.context.get("request")
+
+        if not user.is_active:
+            raise serializers.ValidationError("Account disabled")
+
+        if user.role != "MASTER_ADMIN":
+            LoginActivity.objects.create(
+                user=user,
+                ip_address=request.META.get("REMOTE_ADDR"),
+                user_agent=request.META.get("HTTP_USER_AGENT", ""),
+                successful=False
+            )
+            raise serializers.ValidationError("Master Admin access only")
+
+        LoginActivity.objects.create(
+            user=user,
+            ip_address=request.META.get("REMOTE_ADDR"),
+            user_agent=request.META.get("HTTP_USER_AGENT", ""),
+            successful=True
+        )
+
+        return data
+
+
+class TenantTokenSerializer(TokenObtainPairSerializer):
+
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        token["role"] = user.role
+        token["tenant_id"] = user.tenant_id
+        return token
+
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        user = self.user
+        request = self.context.get("request")
+
+        if not user.is_active:
+            raise serializers.ValidationError("Account disabled")
+
+        # ❌ Block Master Admin here if you want
+        if user.role == "MASTER_ADMIN":
+            raise serializers.ValidationError(
+                "Master Admin must login via Master Panel"
+            )
+
+        LoginActivity.objects.create(
+            user=user,
+            ip_address=request.META.get("REMOTE_ADDR"),
+            user_agent=request.META.get("HTTP_USER_AGENT", ""),
+            successful=True
+        )
+
+        return data
+

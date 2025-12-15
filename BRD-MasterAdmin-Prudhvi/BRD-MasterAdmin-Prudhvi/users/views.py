@@ -12,7 +12,7 @@ from .models import User, AuditLog
 from .serializers import UserSerializer, AuditLogSerializer, UserSignupSerializer
 
 from .models import User, AuditLog, LoginActivity
-from .serializers import UserSerializer, AuditLogSerializer, UserSignupSerializer, LoginActivitySerializer, ChangePasswordSerializer
+from .serializers import UserSerializer, AuditLogSerializer, UserSignupSerializer, LoginActivitySerializer, ChangePasswordSerializer, MasterAdminTokenSerializer, TenantTokenSerializer
 import pyotp
 import qrcode
 from io import BytesIO
@@ -230,3 +230,11 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             "request": self.request,  # 👈 VERY IMPORTANT
             "view": self,
         }
+
+
+class MasterAdminLoginView(TokenObtainPairView):
+    serializer_class = MasterAdminTokenSerializer
+
+
+class TenantLoginView(TokenObtainPairView):
+    serializer_class = TenantTokenSerializer
