@@ -1,5 +1,14 @@
-
+# =========================
+# Python / Django
+# =========================
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
 *.pyd
+.venv/
+venv/
+env/
+*.log
+staticfiles/
+media/
+.env
