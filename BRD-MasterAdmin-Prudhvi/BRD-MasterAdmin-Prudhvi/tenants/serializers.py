@@ -11,14 +11,14 @@ User = get_user_model()
 # -------------------- Branch Serializer --------------------
 class BranchSerializer(serializers.ModelSerializer):
     tenant = serializers.SlugRelatedField(
-        slug_field='tenant_id',
-        read_only=True
+        queryset=Tenant.objects.all(),
+        slug_field="tenant_id"
     )
 
     class Meta:
         model = Branch
         fields = "__all__"
-        read_only_fields = ("tenant",)
+
 
 
 # -------------------- Tenant Serializer --------------------

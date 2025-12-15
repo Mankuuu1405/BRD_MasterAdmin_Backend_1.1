@@ -94,21 +94,21 @@ function App() {
 
        
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/organizations" element={<OrganizationList /> } />
+        <Route path="/organizations" element={<Organization /> } />
         <Route path="/organizations/add" element={<AddOrganization />} />
         <Route path="/organizations/branches/create" element={<CreateBranch />} />
         <Route path="/organizations/list" element={<OrganizationList /> } />
         <Route path="/organizations/edit/:id" element={<EditOrganization />} />
        
-        <Route path="/organization/branches/list" element={<BranchList />} />
-        <Route path="/organization/branches/update/:id" element={<UpdateBranch />} />
-        <Route path="/organization/branches/create" element={<CreateBranch />} />
+        <Route path="/organizations/branches/list" element={<BranchList />} />
+        <Route path="/organizations/branches/update/:id" element={<UpdateBranch />} />
+        <Route path="/organizations/branches/add" element={<CreateBranch />} />
 
 
 
-        <Route path="/users" element={<Users />} />
+        {/* <Route path="/users" element={<Users />} /> */}
         <Route path="/users/add" element={<AddUser />} />
-        <Route path="/users/list" element={<UserList />} />
+        <Route path="/users" element={<UserList />} />
         <Route path="/users/edit/:id" element={<EditUser />} />
 
 

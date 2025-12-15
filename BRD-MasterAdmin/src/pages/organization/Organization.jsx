@@ -10,15 +10,7 @@ import {
 } from "react-icons/fi";
 
 
-// ---------------------
-//  STAT CARD — Screenshot Theme
-// ---------------------
-const StatCard = ({ title, value }) => (
-  <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-all">
-    <h3 className="text-gray-600 text-sm font-medium">{title}</h3>
-    <p className="text-3xl font-semibold text-gray-900 mt-3">{value}</p>
-  </div>
-);
+
 
 
 // ---------------------
@@ -51,12 +43,12 @@ const Organization = () => {
     {
       title: "Organizations",
       icon: <FiHome className="text-indigo-600 text-xl" />,
-      onClick: () => navigate("/organization/list"),
+      onClick: () => navigate("/organizations/list"),
     },
     {
       title: "Branches",
       icon: <FiMapPin className="text-green-600 text-xl" />,
-      onClick: () => navigate("/organization/branches/list"),
+      onClick: () => navigate("/organizations/branches/list"),
     },
   ];
 
@@ -74,17 +66,10 @@ const Organization = () => {
       {/* PAGE HEADER */}
       <div className="mb-8">
         <h1 className="text-2xl font-semibold text-gray-900">Organization Management</h1>
-        <p className="text-gray-500 text-sm mt-1">
-          Manage organizations, branches, departments, staff & module access.
-        </p>
+       
       </div>
 
-      {/* STATS CARDS */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-        <StatCard title="Total Organizations" value={summary.totalOrganizations} />
-        <StatCard title="Total Branches" value={summary.totalBranches} />
-        <StatCard title="Pending Requests" value={summary.pendingRequests} />
-      </div>
+
 
       {/* FEATURE MODULES */}
       <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">

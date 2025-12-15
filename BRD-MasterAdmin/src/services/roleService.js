@@ -1,7 +1,7 @@
 import { api } from "./api";
 
 // ✅ Fix: '/api/v1' हटा दिया गया है
-const BASE_URL = "/adminpanel/role-masters/";
+const BASE_URL = "/adminpanel/role-master/";
 
 export const roleService = {
 

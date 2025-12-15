@@ -50,7 +50,7 @@ const UpdateBranch = () => {
       } catch (error) {
         console.error("Error loading branch data:", error);
         alert("Failed to load branch details.");
-        navigate("/organization/branches/list");
+        navigate("/organizations/branches/list");
       } finally {
         setLoading(false);
       }
@@ -81,7 +81,7 @@ const UpdateBranch = () => {
     try {
       await branchService.updateBranch(id, payload);
       alert("Branch updated successfully!");
-      navigate("/organization/branches/list");
+      navigate("/organizations/branches/list");
     } catch (error) {
       console.error("Update failed:", error);
       alert("Failed to update branch. Please try again.");

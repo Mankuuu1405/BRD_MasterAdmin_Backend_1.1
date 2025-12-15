@@ -11,7 +11,6 @@ export default function OrganizationList() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
 
-  // 🔴 delete popup states
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteOrgId, setDeleteOrgId] = useState(null);
 
@@ -19,23 +18,38 @@ export default function OrganizationList() {
     loadData();
   }, []);
 
+  /* ---------------- LOAD DATA (FIXED) ---------------- */
   const loadData = async () => {
     try {
-      const data = await organizationService.getOrganizations();
-      setOrganizations(data || []);
+      const response = await organizationService.getOrganizations();
+
+      // ✅ Normalize response (VERY IMPORTANT)
+      const list = Array.isArray(response)
+        ? response
+        : Array.isArray(response?.results)
+        ? response.results
+        : Array.isArray(response?.data)
+        ? response.data
+        : [];
+
+      setOrganizations(list);
     } catch (error) {
       console.error("Error loading organizations:", error);
+      setOrganizations([]); // prevent crash
     } finally {
       setLoading(false);
     }
   };
 
+  /* ---------------- FILTER (SAFE) ---------------- */
   const filteredOrgs = useMemo(() => {
+    if (!Array.isArray(organizations)) return [];
+
     return organizations.filter(
       (org) =>
         !search ||
-        org.name.toLowerCase().includes(search.toLowerCase()) ||
-        org.email.toLowerCase().includes(search.toLowerCase()) ||
+        org.name?.toLowerCase().includes(search.toLowerCase()) ||
+        org.email?.toLowerCase().includes(search.toLowerCase()) ||
         (org.phone || "").includes(search) ||
         (org.address || "").toLowerCase().includes(search.toLowerCase())
     );
@@ -150,31 +164,27 @@ export default function OrganizationList() {
                   <FiEdit className="text-blue-600" />
                 </button>
 
-             <button
-  onClick={() => openDeleteModal(org.tenant_id)}
-  className="p-2 rounded-full bg-red-100 hover:bg-red-200"
->
-  <FiTrash2 className="text-red-600" />
-</button>
-
+                <button
+                  onClick={() => openDeleteModal(org.tenant_id)}
+                  className="p-2 rounded-full bg-red-100 hover:bg-red-200"
+                >
+                  <FiTrash2 className="text-red-600" />
+                </button>
               </div>
             </div>
           ))
         )}
       </div>
 
-      {/* DELETE CONFIRM MODAL */}
- {showDeleteModal && (
-  <DeleteConfirmButton
-    title="Delete Organization"
-    message="Are you sure you want to delete this organization?"
-    onConfirm={confirmDelete}
-    onCancel={closeDeleteModal}
-  />
-)}
-
-
-
+      {/* DELETE MODAL */}
+      {showDeleteModal && (
+        <DeleteConfirmButton
+          title="Delete Organization"
+          message="Are you sure you want to delete this organization?"
+          onConfirm={confirmDelete}
+          onCancel={closeDeleteModal}
+        />
+      )}
     </MainLayout>
   );
 }

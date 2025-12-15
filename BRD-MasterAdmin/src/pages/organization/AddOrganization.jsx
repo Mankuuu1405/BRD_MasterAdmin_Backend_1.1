@@ -140,9 +140,7 @@ const validateForm = () => {
         setShowSuccess(true);
 
         // ✅ auto redirect after 2 seconds
-        setTimeout(() => {
-          navigate("/organization/list");
-        }, 100);
+       navigate("/organizations/list", { replace: true });
       } else {
         setErrors("Tenant added but tenant ID not received from server.");
       }

@@ -42,8 +42,7 @@ const Sidebar = () => {
     { name: "Organizations", path: "/organizations", icon: <FiGrid size={18} /> },
     { name: "Users", path: "/users", icon: <FiUsers size={18} /> },
     { name: "Roles", path: "/roles", icon: <FiKey size={18} /> },
-    { name: "Reports", path: "/reports", icon: <FiBarChart2 size={18} /> },
-    { name: "Audit", path: "/audit", icon: <FiShield size={18} /> },
+    
     { name: "Subscription", path: "/subscriptions", icon: <FiCreditCard size={18} /> },
 
     // ===================
