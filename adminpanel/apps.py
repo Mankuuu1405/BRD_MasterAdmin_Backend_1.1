@@ -16,3 +16,4 @@ class AdminpanelConfig(AppConfig):
         from adminpanel.agent_management import models
         from adminpanel.profile_management import models
         from adminpanel.audit_logs import models
+        from adminpanel.coupon_management import models

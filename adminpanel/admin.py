@@ -144,3 +144,18 @@ import adminpanel.mis_reporting_management.admin
 
 # ================= system settings =================
 import adminpanel.system_settings.admin 
+
+# ================= subscription management =================
+import adminpanel.subscription_management.admin
+
+# ================= coupon management =================
+import adminpanel.coupon_management.admin
+
+# ================= bank funds management =================
+import adminpanel.bank_funds_management.admin
+
+# ================= profile management =================
+import adminpanel.profile_management.admin
+
+# ================= agent management =================
+import adminpanel.agent_management.admin
