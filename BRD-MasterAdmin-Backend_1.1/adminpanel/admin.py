@@ -138,3 +138,6 @@ import adminpanel.risk_mitigation_management.admin
 
 # ================= MIS & REPORTING =================
 import adminpanel.mis_reporting_management.admin
+
+# ================= system settings =================
+import adminpanel.system_settings.admin 
