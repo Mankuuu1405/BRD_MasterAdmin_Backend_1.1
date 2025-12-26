@@ -1,0 +1,63 @@
+from django.db import models
+
+import uuid
+
+
+class ApprovalMaster(models.Model):
+    LEVEL_CHOICES = [
+        ("L1", "Level 1"),
+        ("L2", "Level 2"),
+        ("L3", "Level 3"),
+        ("L4", "Level 4"),
+        ("FINAL", "Final"),
+    ]
+
+    TYPE_CHOICES = [
+        ("INDIVIDUAL", "Individual"),
+        ("TEAM", "Team"),
+    ]
+
+    STATUS_CHOICES = [
+        ("ACTIVE", "Active"),
+        ("INACTIVE", "Inactive"),
+    ]
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    # Approval hierarchy
+    level = models.CharField(max_length=10, choices=LEVEL_CHOICES)
+
+    # Approver nature
+    type = models.CharField(max_length=20, choices=TYPE_CHOICES)
+
+    # Product info
+    product_type = models.CharField(max_length=100)
+    product_name = models.CharField(max_length=150)
+
+    # Approval details
+    sanction_name = models.CharField(max_length=150)
+
+    rate_inc = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    rate_dec = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+
+    fees_inc = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    fees_dec = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+
+    tenure_inc = models.PositiveIntegerField(null=True, blank=True)
+    tenure_dec = models.PositiveIntegerField(null=True, blank=True)
+
+    moratorium_interest = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    moratorium_period = models.PositiveIntegerField(null=True, blank=True)
+
+    approval_range = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True)
+
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="ACTIVE")
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["level", "product_type"]
+
+    def __str__(self):
+        return f"{self.level} - {self.product_name}"
+
