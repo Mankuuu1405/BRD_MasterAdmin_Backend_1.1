@@ -8,3 +8,4 @@ urlpatterns = [
     # ✅ Master Admin APIs only
     path("api/v1/adminpanel/", include("adminpanel.urls")),
 ]
+    

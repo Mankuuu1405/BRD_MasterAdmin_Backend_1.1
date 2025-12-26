@@ -52,12 +52,15 @@ class LoanProductAdmin(admin.ModelAdmin):
         "product_name",
         "product_category",
         "product_type",
-        "min_amount",
-        "max_amount",
+        "product_amount",
+        "product_period_value",
+        "product_period_unit",
         "is_active",
         "created_at",
     )
     readonly_fields = ("created_at",)
+    list_filter = ("product_category", "product_type", "is_active")
+    search_fields = ("product_name", "product_category", "product_type")
 
 
 # ================= PRODUCT MIX =================
