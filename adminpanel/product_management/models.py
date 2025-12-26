@@ -2,21 +2,31 @@ from django.db import models
 import uuid
 
 
-# ================= LOAN PRODUCT =================
+# ================= LOAN PRODUCT =================i
+
 class LoanProduct(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-    product_category = models.CharField(max_length=50)
-    product_type = models.CharField(max_length=100)
-    product_name = models.CharField(max_length=150, unique=True)
+    product_category = models.CharField(max_length=50)  # Broad classification, e.g., Loan, Credit
+    product_type = models.CharField(max_length=100)     # Sub-category or variant, e.g., Personal Loan
+    product_name = models.CharField(max_length=150, unique=True)  # Name of the product
 
-    min_amount = models.DecimalField(max_digits=12, decimal_places=2)
-    max_amount = models.DecimalField(max_digits=12, decimal_places=2)
+    product_amount = models.DecimalField(max_digits=12, decimal_places=2)  # Loan amount or service value
 
-    min_tenure_months = models.PositiveIntegerField()
-    max_tenure_months = models.PositiveIntegerField()
+    # Product period (number + unit)
+    product_period_value = models.PositiveIntegerField()  # e.g., 24
+    product_period_unit = models.CharField(
+        max_length=10,
+        choices=[('Days', 'Days'), ('Months', 'Months'), ('Years', 'Years')],
+        default='Months'
+    )
 
+    # Product facilities
+    product_facilities = models.JSONField(default=list, blank=True)  # e.g., ["Top-up", "Insurance"]
+
+    # Status
     is_active = models.BooleanField(default=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
