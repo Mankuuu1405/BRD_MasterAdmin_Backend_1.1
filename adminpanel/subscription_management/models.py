@@ -22,7 +22,7 @@ class SubscriptionPlan(models.Model):
 
     subscription_type = models.CharField(
         max_length=20,
-        choices=(("MONTHLY", "Monthly"), ("QUARTERLY", "Quarterly"), ("YEARLY", "Yearly"))
+        choices=(("MONTHLY", "Monthly"), ("QUARTERLY", "Quarterly"), ("ANNUAL", "Annual"))
     )
 
     valid_from = models.DateTimeField()
