@@ -3,7 +3,7 @@ from rest_framework.routers import DefaultRouter
 from .views import ApprovalMasterViewSet
 
 router = DefaultRouter()
-router.register("approval-masters", ApprovalMasterViewSet)
+router.register("approval-list", ApprovalMasterViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
