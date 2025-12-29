@@ -165,3 +165,25 @@ import adminpanel.rule_management.admin
 
 # ================= loan improvement =================
 import adminpanel.loan_improvement.admin
+
+# ================= concession management =================
+import adminpanel.concession_management.admin
+
+# ================= currency management =================
+import adminpanel.currency_management.admin
+
+# ================= provisioning classification =================
+import adminpanel.provisioning_classification.admin
+
+# ================= collection management =================
+import adminpanel.collection_management.admin
+
+# ================= disbursement management =================
+import adminpanel.disbursement_management.admin
+
+# ================= document management =================
+import adminpanel.document_management.admin
+
+# ================= organization management =================
+import adminpanel.organization_management.admin
+
