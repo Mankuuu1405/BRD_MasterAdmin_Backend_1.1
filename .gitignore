@@ -12,4 +12,3 @@ env/
 staticfiles/
 media/
 .env
-db.sqlite3
