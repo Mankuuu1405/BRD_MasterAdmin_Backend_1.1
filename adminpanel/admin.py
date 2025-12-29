@@ -156,3 +156,9 @@ import adminpanel.profile_management.admin
 
 # ================= agent management =================
 import adminpanel.agent_management.admin
+
+# ================= rule management =================
+import adminpanel.rule_management.admin
+
+# ================= loan improvement =================
+import adminpanel.loan_improvement.admin
