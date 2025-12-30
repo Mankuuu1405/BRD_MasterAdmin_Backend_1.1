@@ -34,5 +34,8 @@ urlpatterns = [
     path("approval-master/", include("adminpanel.approval_master.urls")),
     path("subscription/", include("adminpanel.subscription_management.urls")),
     path("coupon/", include("adminpanel.coupon_management.urls")),
+    path("agent/", include("adminpanel.agent_management.urls")),
+    path("currency-management/", include("adminpanel.currency_management.urls")),
+    path("concession-management/", include("adminpanel.concession_management.urls")),
     path("", include(router.urls)),
 ]
