@@ -6,17 +6,16 @@ from .serializers import CurrencySerializer
 from .permissions import IsMasterAdmin
 
 class CurrencyViewSet(ModelViewSet):
-    permission_classes = [IsMasterAdmin]
     serializer_class = CurrencySerializer
 
     def get_queryset(self):
         return Currency.objects.filter(isDeleted=False)
 
     def perform_create(self, serializer):
-        serializer.save(created_user=self.request.user.username)
+        serializer.save(created_user=self.request.user.email)
 
     def perform_update(self, serializer):
-        serializer.save(modified_user=self.request.user.username)
+        serializer.save(modified_user=self.request.user.email)
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()

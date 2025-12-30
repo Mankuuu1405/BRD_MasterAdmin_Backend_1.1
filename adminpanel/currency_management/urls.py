@@ -5,6 +5,4 @@ from .views import CurrencyViewSet
 router = DefaultRouter()
 router.register("currencies", CurrencyViewSet, basename="currency")
 
-urlpatterns = [
-    path("api/v1/currency-management/", include(router.urls)),
-]
+urlpatterns = router.urls
