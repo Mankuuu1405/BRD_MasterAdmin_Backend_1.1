@@ -32,5 +32,6 @@ urlpatterns = [
     path("product-management/", include("adminpanel.product_management.urls")),
     path("access-control/", include("adminpanel.access_control.urls")),
     path("approval-master/", include("adminpanel.approval_master.urls")),
+    path("home-dashboard/", include("adminpanel.home_dashboard.urls")),
     path("", include(router.urls)),
 ]
