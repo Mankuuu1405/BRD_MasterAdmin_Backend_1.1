@@ -187,3 +187,11 @@ import adminpanel.document_management.admin
 # ================= organization management =================
 import adminpanel.organization_management.admin
 
+# ================= home dashboard =================
+import adminpanel.home_dashboard.admin
+
+# ================= occupation type management =================
+import adminpanel.occupation_type_management.admin
+
+# ================= employment type management =================
+import adminpanel.employment_type_management.admin
