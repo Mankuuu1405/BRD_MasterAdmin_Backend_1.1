@@ -12,4 +12,5 @@ env/
 staticfiles/
 media/
 .env
+# Ignore SQLite database
 db.sqlite3
