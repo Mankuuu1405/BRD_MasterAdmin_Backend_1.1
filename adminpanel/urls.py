@@ -32,9 +32,13 @@ urlpatterns = [
     path("product-management/", include("adminpanel.product_management.urls")),
     path("access-control/", include("adminpanel.access_control.urls")),
     path("approval-master/", include("adminpanel.approval_master.urls")),
+    path("home-dashboard/", include("adminpanel.home_dashboard.urls")),
     path("subscription/", include("adminpanel.subscription_management.urls")),
     path("coupon/", include("adminpanel.coupon_management.urls")),
-    path("currency-management/", include("adminpanel.currency_management.urls")),
+   
     path("rule-management/", include("adminpanel.rule_management.urls")),
+    path("agent/", include("adminpanel.agent_management.urls")),
+    path("currency-management/", include("adminpanel.currency_management.urls")),
+    path("concession-management/", include("adminpanel.concession_management.urls")),
     path("", include(router.urls)),
 ]

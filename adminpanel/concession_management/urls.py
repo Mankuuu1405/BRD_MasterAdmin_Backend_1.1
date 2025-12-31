@@ -3,9 +3,19 @@ from rest_framework.routers import DefaultRouter
 from .views import ConcessionTypeViewSet, ConcessionCategoryViewSet
 
 router = DefaultRouter()
-router.register("concession-types", ConcessionTypeViewSet)
-router.register("concession-categories", ConcessionCategoryViewSet)
+
+router.register(
+    r"concession-types",
+    ConcessionTypeViewSet,
+    basename="concession-type"
+)
+
+router.register(
+    r"concession-categories",
+    ConcessionCategoryViewSet,
+    basename="concession-category"
+)
 
 urlpatterns = [
-    path("api/v1/concession-management/", include(router.urls)),
+    path("", include(router.urls)),
 ]

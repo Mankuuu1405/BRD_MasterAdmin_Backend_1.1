@@ -5,5 +5,4 @@ from .views import CurrencyViewSet
 router = DefaultRouter()
 router.register("currencies", CurrencyViewSet, basename="currency")
 
-
 urlpatterns = router.urls
