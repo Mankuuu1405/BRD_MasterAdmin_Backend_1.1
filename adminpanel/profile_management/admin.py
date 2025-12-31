@@ -1,39 +1,50 @@
 from django.contrib import admin
 from .models import *
 
-admin.site.register(VendorType)
-admin.site.register(VendorCategory)
-admin.site.register(VendorConstitution)
-admin.site.register(VendorLocation)
-admin.site.register(VendorServiceType)
+# Auto-register all masters
+MASTER_MODELS = [
+    VendorType, VendorCategory, VendorConstitution, VendorLocation, VendorServiceType,
+    AgentType, AgentCategory, AgentLevel, AgentConstitution, AgentServiceType,
+    AgentLocation, AgentResponsibility,
+    ClientCategory, ClientType, ClientConstitution, ClientRole,
+    Industry, Sector, ApplicantType, EmploymentType, EmploymentCategory,
+    EmployerType, Qualification, OccupationType, Occupation, ModeOfOccupation,
+    Institution, MembershipType, GenderSalute, Relationship, AddressType, Ownership,
+]
 
-admin.site.register(AgentType)
-admin.site.register(AgentCategory)
-admin.site.register(AgentLevel)
-admin.site.register(AgentConstitution)
-admin.site.register(AgentLocation)
-admin.site.register(AgentServiceType)
-admin.site.register(AgentResponsibility)
+for model in MASTER_MODELS:
+    admin.site.register(model)
 
-admin.site.register(ClientCategory)
-admin.site.register(ClientType)
-admin.site.register(ClientConstitution)
-admin.site.register(ClientRole)
-admin.site.register(Industry)
-admin.site.register(Sector)
-admin.site.register(ApplicantType)
-admin.site.register(EmploymentType)
-admin.site.register(EmploymentCategory)
-admin.site.register(Employer)
-admin.site.register(Qualification)
-admin.site.register(OccupationType)
-admin.site.register(Occupation)
-admin.site.register(ModeOfOccupation)
-admin.site.register(Institution)
-admin.site.register(MembershipType)
-admin.site.register(GenderSalutation)
-admin.site.register(Relationship)
-admin.site.register(AddressType)
-admin.site.register(Ownership)
-admin.site.register(EmployeeQuota)
-admin.site.register(GroupLoan)
+
+@admin.register(VendorProfile)
+class VendorProfileAdmin(admin.ModelAdmin):
+    list_display = (
+        "vendor_type",
+        "vendor_category",
+        "vendor_constitution",
+        "vendor_location",
+        "vendor_service_type",
+        "is_active",
+    )
+
+
+@admin.register(AgentProfile)
+class AgentProfileAdmin(admin.ModelAdmin):
+    list_display = (
+        "agent_type",
+        "agent_category",
+        "agent_level",
+        "agent_location",
+        "is_active",
+    )
+
+
+@admin.register(ClientProfile)
+class ClientProfileAdmin(admin.ModelAdmin):
+    list_display = (
+        "client_category",
+        "client_type",
+        "employment_type",
+        "industry",
+        "is_active",
+    )
