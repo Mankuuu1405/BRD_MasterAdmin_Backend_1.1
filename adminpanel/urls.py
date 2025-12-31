@@ -40,5 +40,7 @@ urlpatterns = [
     path("agent/", include("adminpanel.agent_management.urls")),
     path("currency-management/", include("adminpanel.currency_management.urls")),
     path("concession-management/", include("adminpanel.concession_management.urls")),
+    path("profile-management/", include("adminpanel.profile_management.urls")),
+    path("controls-management/", include("adminpanel.system_settings.urls")),
     path("", include(router.urls)),
 ]

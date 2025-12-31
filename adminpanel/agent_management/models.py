@@ -22,7 +22,7 @@ class BaseAgent(models.Model):
     agent_name = models.CharField(max_length=150)
     contact_no = models.CharField(max_length=15)
     email = models.EmailField()
-    location = models.ForeignKey(AgentLocation, on_delete=models.PROTECT)
+    # location = models.ForeignKey(AgentLocation, on_delete=models.PROTECT)
 
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="ACTIVE")
     created_at = models.DateTimeField(auto_now_add=True)
@@ -38,9 +38,9 @@ class BaseAgent(models.Model):
 # =====================================================
 class ChannelPartner(BaseAgent):
     agent_type = models.ForeignKey(AgentType, on_delete=models.PROTECT)
-    agent_category = models.ForeignKey(AgentCategory, on_delete=models.PROTECT)
-    agent_level = models.ForeignKey(AgentLevel, on_delete=models.PROTECT)
-    agent_service_type = models.ForeignKey(AgentServiceType, on_delete=models.PROTECT)
+    # agent_category = models.ForeignKey(AgentCategory, on_delete=models.PROTECT)
+    # agent_level = models.ForeignKey(AgentLevel, on_delete=models.PROTECT)
+    # agent_service_type = models.ForeignKey(AgentServiceType, on_delete=models.PROTECT)
 
 
 # =====================================================
