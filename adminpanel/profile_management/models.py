@@ -1,136 +1,199 @@
 from django.db import models
-import uuid
 
-STATUS_CHOICES = (
-    ("ACTIVE", "Active"),
-    ("INACTIVE", "Inactive"),
-)
-
-# =================================================
+# =========================
 # COMMON BASE
-# =================================================
-class BaseProfile(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=100)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="ACTIVE")
-    created_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now=True)
-    is_deleted = models.BooleanField(default=False)
+# =========================
+class BaseMaster(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return self.name
 
-# =================================================
-# VENDOR PROFILE MANAGEMENT
-# (Type, Category, Constitution, Location, Service Type)
-# =================================================
-class VendorType(BaseProfile):
-    pass
 
-class VendorCategory(BaseProfile):
-    pass
-
-class VendorConstitution(BaseProfile):
-    pass
-
-class VendorLocation(BaseProfile):
-    pass
-
-class VendorServiceType(BaseProfile):
+# =========================
+# VENDOR MASTERS
+# =========================
+class VendorType(BaseMaster):
     pass
 
 
-# =================================================
-# AGENT PROFILE MANAGEMENT
-# =================================================
-class AgentType(BaseProfile):
-    pass
-
-class AgentCategory(BaseProfile):
-    pass
-
-class AgentLevel(BaseProfile):
-    pass
-
-class AgentConstitution(BaseProfile):
-    pass
-
-class AgentLocation(BaseProfile):
-    pass
-
-class AgentServiceType(BaseProfile):
-    pass
-
-class AgentResponsibility(BaseProfile):
+class VendorCategory(BaseMaster):
     pass
 
 
-# =================================================
-# CLIENT PROFILE MANAGEMENT
-# =================================================
-class ClientCategory(BaseProfile):
+class VendorConstitution(BaseMaster):
     pass
 
-class ClientType(BaseProfile):
+
+class VendorLocation(BaseMaster):
     pass
 
-class ClientConstitution(BaseProfile):
+
+class VendorServiceType(BaseMaster):
     pass
 
-class ClientRole(BaseProfile):
+
+class VendorProfile(models.Model):
+    vendor_type = models.ForeignKey(VendorType, on_delete=models.PROTECT)
+    vendor_category = models.ForeignKey(VendorCategory, on_delete=models.PROTECT)
+    vendor_constitution = models.ForeignKey(VendorConstitution, on_delete=models.PROTECT)
+    vendor_location = models.ForeignKey(VendorLocation, on_delete=models.PROTECT)
+    vendor_service_type = models.ForeignKey(VendorServiceType, on_delete=models.PROTECT)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"{self.vendor_type} - {self.vendor_category}"
+
+
+# =========================
+# AGENT MASTERS
+# =========================
+class AgentType(BaseMaster):
     pass
 
-class Industry(BaseProfile):
+
+class AgentCategory(BaseMaster):
     pass
 
-class Sector(BaseProfile):
+
+class AgentLevel(BaseMaster):
     pass
 
-class ApplicantType(BaseProfile):
+
+class AgentConstitution(BaseMaster):
     pass
 
-class EmploymentType(BaseProfile):
+
+class AgentServiceType(BaseMaster):
     pass
 
-class EmploymentCategory(BaseProfile):
+
+class AgentLocation(BaseMaster):
     pass
 
-class Employer(BaseProfile):
+
+class AgentResponsibility(BaseMaster):
     pass
 
-class Qualification(BaseProfile):
+
+class AgentProfile(models.Model):
+    agent_type = models.ForeignKey(AgentType, on_delete=models.PROTECT)
+    agent_category = models.ForeignKey(AgentCategory, on_delete=models.PROTECT)
+    agent_level = models.ForeignKey(AgentLevel, on_delete=models.PROTECT)
+    agent_constitution = models.ForeignKey(AgentConstitution, on_delete=models.PROTECT)
+    agent_service_type = models.ForeignKey(AgentServiceType, on_delete=models.PROTECT)
+    agent_location = models.ForeignKey(AgentLocation, on_delete=models.PROTECT)
+    agent_responsibility = models.ManyToManyField(AgentResponsibility)
+    is_active = models.BooleanField(default=True)
+
+
+# =========================
+# CLIENT MASTERS (FOR DROPDOWNS)
+# =========================
+class ClientCategory(BaseMaster):
     pass
 
-class OccupationType(BaseProfile):
+
+class ClientType(BaseMaster):
     pass
 
-class Occupation(BaseProfile):
+
+class ClientConstitution(BaseMaster):
     pass
 
-class ModeOfOccupation(BaseProfile):
+
+class ClientRole(BaseMaster):
     pass
 
-class Institution(BaseProfile):
+
+class Industry(BaseMaster):
     pass
 
-class MembershipType(BaseProfile):
+
+class Sector(BaseMaster):
     pass
 
-class GenderSalutation(BaseProfile):
+
+class ApplicantType(BaseMaster):
     pass
 
-class Relationship(BaseProfile):
+
+class EmploymentType(BaseMaster):
     pass
 
-class AddressType(BaseProfile):
+
+class EmploymentCategory(BaseMaster):
     pass
 
-class Ownership(BaseProfile):
+
+class EmployerType(BaseMaster):
     pass
 
-class EmployeeQuota(BaseProfile):
+
+class Qualification(BaseMaster):
     pass
 
-class GroupLoan(BaseProfile):
+
+class OccupationType(BaseMaster):
     pass
+
+
+class Occupation(BaseMaster):
+    pass
+
+
+class ModeOfOccupation(BaseMaster):
+    pass
+
+
+class Institution(BaseMaster):
+    pass
+
+
+class MembershipType(BaseMaster):
+    pass
+
+
+class GenderSalute(BaseMaster):
+    pass
+
+
+class Relationship(BaseMaster):
+    pass
+
+
+class AddressType(BaseMaster):
+    pass
+
+
+class Ownership(BaseMaster):
+    pass
+
+
+class ClientProfile(models.Model):
+    client_category = models.ForeignKey(ClientCategory, on_delete=models.PROTECT)
+    client_type = models.ForeignKey(ClientType, on_delete=models.PROTECT)
+    constitution = models.ForeignKey(ClientConstitution, on_delete=models.PROTECT)
+    role = models.ForeignKey(ClientRole, on_delete=models.PROTECT)
+    industry = models.ForeignKey(Industry, on_delete=models.PROTECT)
+    sector = models.ForeignKey(Sector, on_delete=models.PROTECT)
+    applicant_type = models.ForeignKey(ApplicantType, on_delete=models.PROTECT)
+    employment_type = models.ForeignKey(EmploymentType, on_delete=models.PROTECT)
+    employment_category = models.ForeignKey(EmploymentCategory, on_delete=models.PROTECT)
+    employer_type = models.ForeignKey(EmployerType, on_delete=models.PROTECT)
+    employer = models.CharField(max_length=150)
+    qualification = models.ForeignKey(Qualification, on_delete=models.PROTECT)
+    occupation_type = models.ForeignKey(OccupationType, on_delete=models.PROTECT)
+    occupation = models.ForeignKey(Occupation, on_delete=models.PROTECT)
+    mode_of_occupation = models.ForeignKey(ModeOfOccupation, on_delete=models.PROTECT)
+    institution = models.ForeignKey(Institution, on_delete=models.PROTECT)
+    membership_type = models.ForeignKey(MembershipType, on_delete=models.PROTECT)
+    gender_salute = models.ForeignKey(GenderSalute, on_delete=models.PROTECT)
+    relationship = models.ForeignKey(Relationship, on_delete=models.PROTECT)
+    address_type = models.ForeignKey(AddressType, on_delete=models.PROTECT)
+    ownership = models.ForeignKey(Ownership, on_delete=models.PROTECT)
+    is_active = models.BooleanField(default=True)
