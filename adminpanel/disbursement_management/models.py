@@ -133,5 +133,7 @@ class Disbursement(models.Model):
 
     status = models.CharField(max_length=10, choices=STATUS_CHOICES)
 
+    created_at = models.DateTimeField(auto_now_add=True)  # <-- add this
+
     def __str__(self):
         return self.disbursement_name

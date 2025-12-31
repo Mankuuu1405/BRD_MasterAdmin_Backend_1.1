@@ -4,7 +4,7 @@ from .models import *
 
 @admin.register(ChannelPartner)
 class ChannelPartnerAdmin(admin.ModelAdmin):
-    list_display = ("agent_name", "agent_type", "agent_category", "status")
+    list_display = ("agent_name", "agent_type", "status")
     list_filter = ("status",)
 
 

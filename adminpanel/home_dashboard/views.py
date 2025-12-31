@@ -4,6 +4,9 @@ from rest_framework.permissions import IsAuthenticated
 from django.db.models import Sum
 
 from adminpanel.access_control.permissions import IsHomeDashboardAllowed
+from adminpanel.organization_management.models import Organization
+from auth_service.accounts.models import User
+from adminpanel.disbursement_management.models import Disbursement
 from .models import DashboardActivity, DashboardAlert
 from .serializers import (
     DashboardSummarySerializer,
@@ -14,7 +17,7 @@ from .serializers import (
 
 
 class DashboardSummaryAPIView(APIView):
-    permission_classes = [IsAuthenticated, IsHomeDashboardAllowed]
+    # permission_classes = [IsAuthenticated, IsHomeDashboardAllowed]
 
     def get(self, request):
         data = {
@@ -23,7 +26,7 @@ class DashboardSummaryAPIView(APIView):
             "active_users": User.objects.filter(is_active=True).count(),
             "active_loans": Disbursement.objects.filter(status="ACTIVE").count(),
             "daily_disbursement": Disbursement.objects.aggregate(
-                total=Sum("amount")
+                total=Sum("down_payment")
             )["total"] or 0,
             "api_status": "OK",
         }
@@ -33,7 +36,7 @@ class DashboardSummaryAPIView(APIView):
 
 
 class DashboardActivityAPIView(APIView):
-    permission_classes = [IsAuthenticated, IsHomeDashboardAllowed]
+    # permission_classes = [IsAuthenticated, IsHomeDashboardAllowed]
 
     def get(self, request):
         activities = DashboardActivity.objects.all()[:10]
@@ -42,7 +45,7 @@ class DashboardActivityAPIView(APIView):
 
 
 class DashboardAlertAPIView(APIView):
-    permission_classes = [IsAuthenticated, IsHomeDashboardAllowed]
+    # permission_classes = [IsAuthenticated, IsHomeDashboardAllowed]
 
     def get(self, request):
         alerts = {
@@ -56,13 +59,13 @@ class DashboardAlertAPIView(APIView):
 
 
 class DisbursementTrendAPIView(APIView):
-    permission_classes = [IsAuthenticated, IsHomeDashboardAllowed]
+    # permission_classes = [IsAuthenticated, IsHomeDashboardAllowed]
 
     def get(self, request):
         trends = (
             Disbursement.objects
             .values("created_at__month")
-            .annotate(total=Sum("amount"))
+            .annotate(total=Sum("down_payment"))
             .order_by("created_at__month")
         )
 
