@@ -41,6 +41,8 @@ class CreditHistoryRuleView(BaseRuleView):
 class InternalScoreRuleView(BaseRuleView):
     queryset = InternalScoreRule.objects.all()
     serializer_class = InternalScoreRuleSerializer
+    lookup_field = "id"
+
 
 
 class GeoLocationRuleView(BaseRuleView):
