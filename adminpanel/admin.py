@@ -195,3 +195,6 @@ import adminpanel.occupation_type_management.admin
 
 # ================= employment type management =================
 import adminpanel.employment_type_management.admin
+
+# ================= users management =================
+import adminpanel.users_management.admin
