@@ -1,34 +1,18 @@
 from django.contrib import admin
 
+
+
 # ================= ACCESS CONTROL =================
 from adminpanel.access_control.models import Role
-
-
+ 
+ 
 @admin.register(Role)
 class RoleAdmin(admin.ModelAdmin):
     list_display = ("name", "is_active", "created_at")
     readonly_fields = ("created_at",)
 
-
 # ================= APPROVAL MASTER =================
-from adminpanel.approval_master.models import ApprovalMaster
-
-
-@admin.register(ApprovalMaster)
-class ApprovalMasterAdmin(admin.ModelAdmin):
-    list_display = (
-        "level",
-        "type",
-        "product_type",
-        "product_name",
-        "sanction_name",
-        "status",
-        "created_at",
-    )
-    list_filter = ("level", "type", "status", "product_type")
-    search_fields = ("product_name", "sanction_name")
-    readonly_fields = ("created_at",)
-
+#from adminpanel.approval_master.models import ApprovalMaster, ApprovalAssignment, EscalationMaster
 
 # ================= PRODUCT MANAGEMENT =================
 from adminpanel.product_management.models import LoanProduct, ProductFacility
@@ -198,3 +182,9 @@ import adminpanel.employment_type_management.admin
 
 # ================= users management =================
 import adminpanel.users_management.admin
+
+# ================= role management =================
+import adminpanel.roles_management.admin
+
+# ================= approval master =================
+import adminpanel.approval_master.admin

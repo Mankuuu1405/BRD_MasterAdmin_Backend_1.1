@@ -13,6 +13,7 @@ from .views import (
     RepaymentConfigViewSet,
     MoratoriumConfigViewSet,
     ProductMixViewSet,
+    GroupViewSet,
 )
 
 router = DefaultRouter()
@@ -26,6 +27,8 @@ router.register("penalty-configs", PenaltyConfigViewSet)
 router.register("repayment-configs", RepaymentConfigViewSet)
 router.register("moratorium-configs", MoratoriumConfigViewSet)
 router.register("product-mixes", ProductMixViewSet)
+router.register(r"roles", GroupViewSet)  # 👈 Groups exposed as Roles
+
 
 urlpatterns = [
     path("login/", LoginView.as_view(), name="admin-login"),
@@ -36,7 +39,7 @@ urlpatterns = [
     path("subscription/", include("adminpanel.subscription_management.urls")),
     path("coupon/", include("adminpanel.coupon_management.urls")),
     path("roles/", include("adminpanel.roles_management.urls")),
-
+    
     path("rule-management/", include("adminpanel.rule_management.urls")),
     path("agent/", include("adminpanel.agent_management.urls")),
     path("currency-management/", include("adminpanel.currency_management.urls")),

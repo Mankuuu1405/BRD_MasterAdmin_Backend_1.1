@@ -12,3 +12,4 @@ class RoleAdmin(admin.ModelAdmin):
     verbose_name = "Role"
     verbose_name_plural = "Roles"
     filter_horizontal = ("permissions",)
+##
