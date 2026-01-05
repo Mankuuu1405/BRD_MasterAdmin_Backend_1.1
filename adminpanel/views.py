@@ -8,6 +8,12 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from adminpanel.models import  ProductMix, Role
 
+from .serializers import GroupSerializer
+from django.contrib.auth.models import Group
+class GroupViewSet(ModelViewSet):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+    permission_classes = [IsAuthenticated]
 
 # ACCESS CONTROL
 from adminpanel.access_control.models import Role

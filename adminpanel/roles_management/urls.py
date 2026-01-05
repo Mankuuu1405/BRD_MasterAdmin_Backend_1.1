@@ -1,6 +1,17 @@
 from django.urls import path
-from .views import RoleListAPIView
+from .views import (
+    RoleListCreateAPIView,
+    PermissionListAPIView,
+    RolePermissionAPIView,
+)
 
 urlpatterns = [
-    path("", RoleListAPIView.as_view(), name="role-list"),
+    # Roles
+    path("roles/", RoleListCreateAPIView.as_view()),
+    
+    # Permissions
+    path("permissions/", PermissionListAPIView.as_view()),
+
+    # Role ↔ Permissions
+    path("roles/<int:role_id>/permissions/", RolePermissionAPIView.as_view()),
 ]
