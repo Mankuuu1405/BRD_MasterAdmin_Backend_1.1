@@ -6,14 +6,11 @@ from .models import AdminUser
 class AdminUserAdmin(admin.ModelAdmin):
     list_display = (
         "user",
-        "organization",
-        "branch",
-        "employee_id",
+        "phone_number",
+        "role",
         "approval_limit",
         "is_active",
-        "created_at",
     )
 
-    list_filter = ("is_active", "organization")
-    search_fields = ("user__email", "employee_id")
-    readonly_fields = ("created_at",)
+    list_filter = ("role",  "is_active")
+    search_fields = ("user__email", "phone_number", "employee_id")

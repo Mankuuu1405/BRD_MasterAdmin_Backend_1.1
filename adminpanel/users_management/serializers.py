@@ -1,55 +1,61 @@
 from rest_framework import serializers
+from django.contrib.auth.models import Group
 from auth_service.accounts.models import User
 from .models import AdminUser
 
 
 class AdminUserCreateSerializer(serializers.Serializer):
-    """
-    Used by frontend Add User screen
-    """
-
+    # User fields
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
+    phone_number = serializers.CharField(required=False, allow_blank=True)
 
-    organization = serializers.CharField()
+    # RBAC
+    role_id = serializers.PrimaryKeyRelatedField(
+        queryset=Group.objects.all(),
+        source="role"
+    )
+
+    # Business fields
+    organization = serializers.CharField(required=False, allow_blank=True)
     branch = serializers.CharField(required=False, allow_blank=True)
-
     employee_id = serializers.CharField(required=False, allow_blank=True)
     approval_limit = serializers.DecimalField(
         max_digits=15, decimal_places=2, required=False
     )
 
-    is_active = serializers.BooleanField(default=True)
-
     def create(self, validated_data):
-        email = validated_data.pop("email")
-        password = validated_data.pop("password")
+        # Extract role
+        role = validated_data.pop("role")
 
+        # Create AUTH user
         user = User.objects.create_user(
-            email=email,
-            password=password
+            email=validated_data.pop("email"),
+            password=validated_data.pop("password")
         )
 
+        # Create ADMIN user
         admin_user = AdminUser.objects.create(
             user=user,
+            role=role,
             **validated_data
         )
 
         return admin_user
-
-
+    
 class AdminUserListSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source="user.email")
+    role = serializers.CharField(source="role.name", default=None)
 
     class Meta:
         model = AdminUser
         fields = [
             "id",
             "email",
-            "organization",
-            "branch",
+            "phone_number",
+            "role",
             "employee_id",
             "approval_limit",
             "is_active",
             "created_at",
-        ]
+        ] 

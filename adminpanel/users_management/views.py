@@ -24,8 +24,13 @@ class AdminUserCreateAPIView(APIView):
         admin_user = serializer.save()
 
         return Response(
-            {"message": "User created successfully"},
-            status=status.HTTP_201_CREATED
+            {
+                "message": "Admin user created successfully",
+                "user_id": admin_user.user.id,
+                "email": admin_user.user.email,
+                "role": admin_user.role.name if admin_user.role else None,
+            },
+            status=status.HTTP_201_CREATED,
         )
 
 

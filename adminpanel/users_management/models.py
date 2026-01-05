@@ -1,14 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import Group
 from auth_service.accounts.models import User
 import uuid
 
 
 class AdminUser(models.Model):
-    """
-    Business user for Master Admin panel
-    This maps exactly to the 'Add User' frontend screen
-    """
-
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     user = models.OneToOneField(
@@ -17,8 +13,17 @@ class AdminUser(models.Model):
         related_name="admin_profile"
     )
 
-    organization = models.CharField(max_length=150)
-    branch = models.CharField(max_length=150, null=True, blank=True)
+    phone_number = models.CharField(max_length=15, null=True, blank=True)
+
+    # RBAC (Role = Django Group)
+    role = models.ForeignKey(
+        Group,
+        on_delete=models.PROTECT,
+        related_name="admin_users",
+        null=True,
+        blank=True
+    )
+
 
     employee_id = models.CharField(max_length=50, null=True, blank=True)
     approval_limit = models.DecimalField(
@@ -26,7 +31,6 @@ class AdminUser(models.Model):
     )
 
     is_active = models.BooleanField(default=True)
-
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
