@@ -198,6 +198,3 @@ import adminpanel.employment_type_management.admin
 
 # ================= users management =================
 import adminpanel.users_management.admin
-
-# ================= role management =================
-import adminpanel.roles_management.admin
