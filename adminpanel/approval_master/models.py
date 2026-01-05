@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.conf import settings
 import uuid
 
 
@@ -61,3 +61,51 @@ class ApprovalMaster(models.Model):
     def __str__(self):
         return f"{self.level} - {self.product_name}"
 
+
+
+
+# ===============================
+# 1. MANAGE APPROVAL
+# ===============================
+class ApprovalAssignment(models.Model):
+    STATUS_CHOICES = (
+        ("ACTIVE", "Active"),
+        ("INACTIVE", "Inactive"),
+    )
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    tenant_id = models.CharField(max_length=100)
+    user_or_group = models.CharField(max_length=100)  # User / Group
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="ACTIVE")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.tenant_id} - {self.user_or_group}"
+
+
+# ===============================
+# 2. ESCALATION MASTER
+# ===============================
+class EscalationMaster(models.Model):
+    LEVEL_CHOICES = (
+        (1, "Level 1"),
+        (2, "Level 2"),
+        (3, "Level 3"),
+        (4, "Level 4"),
+    )
+
+    STATUS_CHOICES = (
+        ("ACTIVE", "Active"),
+        ("INACTIVE", "Inactive"),
+    )
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    escalation_level = models.PositiveSmallIntegerField(choices=LEVEL_CHOICES)
+    escalation_time = models.DateTimeField()
+    escalation_manager = models.CharField(max_length=100)
+    escalation_to = models.CharField(max_length=100)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="ACTIVE")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Level {self.escalation_level} Escalation"
