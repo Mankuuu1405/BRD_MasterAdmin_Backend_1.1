@@ -5,6 +5,7 @@ from django.db.models import Sum
 
 from adminpanel.access_control.permissions import IsHomeDashboardAllowed
 from adminpanel.organization_management.models import Organization
+from adminpanel.organization_management.models import Branch
 from auth_service.accounts.models import User
 from adminpanel.disbursement_management.models import Disbursement
 from .models import DashboardActivity, DashboardAlert
@@ -22,7 +23,7 @@ class DashboardSummaryAPIView(APIView):
     def get(self, request):
         data = {
             "total_organizations": Organization.objects.count(),
-            "total_branches": 0,  # branch module handles this
+            "total_branches": Branch.objects.count(),  # branch module handles this
             "active_users": User.objects.filter(is_active=True).count(),
             "active_loans": Disbursement.objects.filter(status="ACTIVE").count(),
             "daily_disbursement": Disbursement.objects.aggregate(

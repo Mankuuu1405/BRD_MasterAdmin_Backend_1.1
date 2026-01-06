@@ -1,14 +1,19 @@
 from rest_framework import permissions
+from rest_framework.permissions import BasePermission
 
-class IsMasterAdmin(permissions.BasePermission):
+
+class IsMasterAdmin(BasePermission):
     """
-    Allow only users with role MASTER_ADMIN (or superuser) to access.
+    Allows access only to users in MASTER_ADMIN group
     """
+
     def has_permission(self, request, view):
         user = request.user
+
         if not user or not user.is_authenticated:
             return False
-        return getattr(user, 'role', None) == 'MASTER_ADMIN' or user.is_superuser
+
+        return user.groups.filter(name="MASTER_ADMIN").exists()
 
 class IsTenantAdmin(permissions.BasePermission):
     """
@@ -23,3 +28,31 @@ class IsTenantAdmin(permissions.BasePermission):
         if getattr(user, 'role', None) in ('ADMIN', 'SUPER_ADMIN'):
             return True
         return False
+
+class IsAdminOrMaster(BasePermission):
+
+    def has_permission(self, request, view):
+        user = request.user
+
+        if not user or not user.is_authenticated:
+            return False
+
+        return user.groups.filter(
+            name__in=["MASTER_ADMIN", "ADMIN"]
+        ).exists()
+
+class CanManageTenants(BasePermission):
+
+    def has_permission(self, request, view):
+        return request.user.has_perm("tenants.add_tenant")
+
+class IsMasterAdminWithPermission(BasePermission):
+
+    def has_permission(self, request, view):
+        user = request.user
+
+        return (
+            user.is_authenticated and
+            user.groups.filter(name="MASTER_ADMIN").exists() and
+            user.has_perm("tenants.add_tenant")
+        )

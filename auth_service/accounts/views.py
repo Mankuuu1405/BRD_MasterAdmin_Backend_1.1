@@ -38,8 +38,27 @@
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import LoginSerializer
+
+
+from django.contrib.auth import authenticate
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
+from .serializers import LoginSerializer
+from brd_platform.permissions import IsAdminOrMaster
+
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
+
+from .serializers import LoginSerializer
+from adminpanel.access_control.models import UserRole
 
 
 class LoginView(APIView):
@@ -54,31 +73,52 @@ class LoginView(APIView):
         password = serializer.validated_data["password"]
 
         user = authenticate(
-            request=request,      # ✅ REQUIRED for django-axes
-            username=email,       # ✅ MUST be "username"
+            request=request,   # required for django-axes
+            username=email,
             password=password
         )
 
         if not user:
             return Response(
                 {"error": "Invalid credentials"},
-                status=401
+                status=status.HTTP_401_UNAUTHORIZED
             )
 
-        # OPTIONAL: restrict only master admins
-        # if not user.is_staff:
-        if not user or not user.is_staff:
-         return Response(
-         {"error": "Unauthorized master admin"},
-         status=403
-            )
+        # 🔐 RBAC AUTHORIZATION (replace is_staff)
+        has_active_role = UserRole.objects.filter(
+            user=user,
+            role__is_active=True
+        ).exists()
 
-        #     return Response({"error": "Unauthorized"}, status=403)
+        if not has_active_role:
+            return Response(
+                {"error": "Unauthorized. No active role assigned."},
+                status=status.HTTP_403_FORBIDDEN
+            )
 
         refresh = RefreshToken.for_user(user)
+
+        # 🟢 ROLES & PERMISSIONS FROM RBAC
+        roles = user.get_roles()                # ['admin', 'manager']
+        permissions = user.get_permissions()    # ['dashboard.view', 'users.create']
 
         return Response({
             "access": str(refresh.access_token),
             "refresh": str(refresh),
-            "role": "MASTER_ADMIN"
-        })
+            "roles": roles,
+            "permissions": permissions
+        }, status=status.HTTP_200_OK)
+
+
+
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from .serializers import MeSerializer
+
+class MeView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        serializer = MeSerializer(request.user)
+        return Response(serializer.data)
