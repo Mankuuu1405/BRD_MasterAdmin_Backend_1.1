@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import Group
 from auth_service.accounts.models import User
+from adminpanel.access_control.models import Role
 import uuid
 
 
@@ -16,8 +17,16 @@ class AdminUser(models.Model):
     phone_number = models.CharField(max_length=15, null=True, blank=True)
 
     # RBAC (Role = Django Group)
+    # role = models.ForeignKey(
+    #     Group,
+    #     on_delete=models.PROTECT,
+    #     related_name="admin_users",
+    #     null=True,
+    #     blank=True
+    # )
+
     role = models.ForeignKey(
-        Group,
+        Role,                     # ✅ YOUR Role model
         on_delete=models.PROTECT,
         related_name="admin_users",
         null=True,

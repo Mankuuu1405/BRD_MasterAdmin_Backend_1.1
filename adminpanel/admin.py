@@ -2,14 +2,11 @@ from django.contrib import admin
 
 
 
-# ================= ACCESS CONTROL =================
-from adminpanel.access_control.models import Role
+
+
+
+import adminpanel.access_control.admin
  
- 
-@admin.register(Role)
-class RoleAdmin(admin.ModelAdmin):
-    list_display = ("name", "is_active", "created_at")
-    readonly_fields = ("created_at",)
 
 # ================= APPROVAL MASTER =================
 #from adminpanel.approval_master.models import ApprovalMaster, ApprovalAssignment, EscalationMaster
