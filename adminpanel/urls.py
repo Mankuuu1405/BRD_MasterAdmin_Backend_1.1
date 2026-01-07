@@ -4,35 +4,17 @@ from rest_framework.routers import DefaultRouter
 from .views import (
     LoginView,
     RoleViewSet,
-    LoanProductViewSet,
-    ProductFacilityViewSet,
-    InterestConfigViewSet,
-    FeeConfigViewSet,
-    ChargeConfigViewSet,
-    PenaltyConfigViewSet,
-    RepaymentConfigViewSet,
-    MoratoriumConfigViewSet,
-    ProductMixViewSet,
     GroupViewSet,
 )
 
 router = DefaultRouter()
 router.register("roles", RoleViewSet)
-router.register("loan-products", LoanProductViewSet)
-router.register("product-facilities", ProductFacilityViewSet)
-router.register("interest-configs", InterestConfigViewSet)
-router.register("fee-configs", FeeConfigViewSet)
-router.register("charge-configs", ChargeConfigViewSet)
-router.register("penalty-configs", PenaltyConfigViewSet)
-router.register("repayment-configs", RepaymentConfigViewSet)
-router.register("moratorium-configs", MoratoriumConfigViewSet)
-router.register("product-mixes", ProductMixViewSet)
 router.register(r"roles", GroupViewSet)  # 👈 Groups exposed as Roles
 
 
 urlpatterns = [
     path("login/", LoginView.as_view(), name="admin-login"),
-    path("product-management/", include("adminpanel.product_management.urls")),
+   
     path("access-control/", include("adminpanel.access_control.urls")),
     path("approval-master/", include("adminpanel.approval_master.urls")),
     path("home-dashboard/", include("adminpanel.home_dashboard.urls")),
@@ -48,5 +30,6 @@ urlpatterns = [
     path("controls-management/", include("adminpanel.system_settings.urls")),
     path("organization-management/", include("adminpanel.organization_management.urls")),
     path("user-management/", include("adminpanel.users_management.urls")),
+    
     path("", include(router.urls)),
 ]
