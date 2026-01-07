@@ -11,54 +11,6 @@ import adminpanel.access_control.admin
 # ================= APPROVAL MASTER =================
 #from adminpanel.approval_master.models import ApprovalMaster, ApprovalAssignment, EscalationMaster
 
-# ================= PRODUCT MANAGEMENT =================
-from adminpanel.product_management.models import LoanProduct, ProductFacility
-
-
-@admin.register(ProductFacility)
-class ProductFacilityAdmin(admin.ModelAdmin):
-    list_display = (
-        "facility_name",
-        "loan_product",
-        "is_mandatory",
-        "is_active",
-        "created_at",
-    )
-    readonly_fields = ("created_at",)
-
-
-@admin.register(LoanProduct)
-class LoanProductAdmin(admin.ModelAdmin):
-    list_display = (
-        "product_name",
-        "product_category",
-        "product_type",
-        "product_amount",
-        "product_period_value",
-        "product_period_unit",
-        "is_active",
-        "created_at",
-    )
-    readonly_fields = ("created_at",)
-    list_filter = ("product_category", "product_type", "is_active")
-    search_fields = ("product_name", "product_category", "product_type")
-
-
-# ================= PRODUCT MIX =================
-from adminpanel.product_mix_management.models import ProductMix
-
-
-@admin.register(ProductMix)
-class ProductMixAdmin(admin.ModelAdmin):
-    list_display = (
-        "name",
-        "product_category",
-        "product_type",
-        "is_active",
-        "created_at",
-    )
-    filter_horizontal = ("products",)
-    readonly_fields = ("created_at",)
 
 
 # ================= ELIGIBILITY & SCORE MANAGEMENT =================
@@ -185,3 +137,27 @@ import adminpanel.roles_management.admin
 
 # ================= approval master =================
 import adminpanel.approval_master.admin
+
+# ================= fees management =================
+import adminpanel.product_revenue.fees_management.admin
+
+# ================= charges management =================
+import adminpanel.product_revenue.charges_management.admin
+
+# ================= interest management =================
+import adminpanel.product_revenue.interest_management.admin
+
+# ================= repayment management =================
+import adminpanel.product_revenue.repayment_management.admin
+
+# ================= penalty management =================
+import adminpanel.product_revenue.penalties_management.admin
+
+# ================= moratorium management =================
+import adminpanel.product_revenue.moratorium_management.admin
+
+# ================= product mix management =================
+import adminpanel.product_revenue.product_mix_management.admin
+
+# ================= product management =================
+import adminpanel.product_revenue.product_management.admin
