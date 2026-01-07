@@ -5,6 +5,7 @@ from .views import (
     AssignPermissionToRoleAPIView,
     AssignRoleToUserAPIView,
     UserRoleListAPIView,
+    RolePermissionListAPIView,
 )
 
 urlpatterns = [
@@ -27,6 +28,13 @@ urlpatterns = [
         AssignRoleToUserAPIView.as_view(),
         name="assign-role",
     ),
+
+    path(
+    "role-permissions/",
+    RolePermissionListAPIView.as_view(),
+    name="role-permissions",
+),
+
 
     # USER ROLES
     path("user-roles/", UserRoleListAPIView.as_view(), name="user-roles"),

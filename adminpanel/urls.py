@@ -38,6 +38,8 @@ urlpatterns = [
     path("controls-management/", include("adminpanel.system_settings.urls")),
     path("organization-management/", include("adminpanel.organization_management.urls")),
     path("user-management/", include("adminpanel.users_management.urls")),
-    
+    path("loan-improvement/", include("adminpanel.loan_improvement.urls")),
+    path("profile-management/", include("adminpanel.profile_management.urls")),
+
     path("", include(router.urls)),
 ]
