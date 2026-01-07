@@ -23,7 +23,12 @@ urlpatterns = [
     path("product-revenue/", include("adminpanel.product_revenue.penalties_management.urls")),
     path("product-revenue/", include("adminpanel.product_revenue.repayment_management.urls")),
     path("product-revenue/", include("adminpanel.product_revenue.moratorium_management.urls")),
+
+
+    path("eligibility-score-management/", include("adminpanel.eligibility_score_management.urls")),
     
+
+
     path("access-control/", include("adminpanel.access_control.urls")),
     path("approval-master/", include("adminpanel.approval_master.urls")),
     path("home-dashboard/", include("adminpanel.home_dashboard.urls")),
