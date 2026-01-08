@@ -1,51 +1,38 @@
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAdminUser
 from .models import *
 from .serializers import *
 
-class BaseMasterView(ModelViewSet):
-    permission_classes = [IsAdminUser]
 
-    def perform_destroy(self, instance):
-        instance.is_deleted = True
-        instance.save()
-
-
-class BankViewSet(BaseMasterView):
-    queryset = Bank.objects.filter(is_deleted=False)
+class BankViewSet(ModelViewSet):
+    queryset = Bank.objects.all()
     serializer_class = BankSerializer
 
 
-class BankAccountTypeViewSet(BaseMasterView):
-    queryset = BankAccountType.objects.filter(is_deleted=False)
-    serializer_class = BankAccountTypeSerializer
-
-
-class FundTypeViewSet(BaseMasterView):
-    queryset = FundType.objects.filter(is_deleted=False)
+class FundTypeViewSet(ModelViewSet):
+    queryset = FundType.objects.all()
     serializer_class = FundTypeSerializer
 
 
-class FundViewSet(BaseMasterView):
-    queryset = Fund.objects.filter(is_deleted=False)
+class FundViewSet(ModelViewSet):
+    queryset = Fund.objects.all()
     serializer_class = FundSerializer
 
 
-class BusinessModelViewSet(BaseMasterView):
-    queryset = BusinessModel.objects.filter(is_deleted=False)
-    serializer_class = BusinessModelSerializer
-
-
-class PortfolioViewSet(BaseMasterView):
-    queryset = Portfolio.objects.filter(is_deleted=False)
+class PortfolioViewSet(ModelViewSet):
+    queryset = Portfolio.objects.all()
     serializer_class = PortfolioSerializer
 
 
-class ModeOfTransactionViewSet(BaseMasterView):
-    queryset = ModeOfTransaction.objects.filter(is_deleted=False)
-    serializer_class = ModeOfTransactionSerializer
+class ModeOfBankViewSet(ModelViewSet):
+    queryset = ModeOfBank.objects.all()
+    serializer_class = ModeOfBankSerializer
 
 
-class TaxViewSet(BaseMasterView):
-    queryset = Tax.objects.filter(is_deleted=False)
+class TaxViewSet(ModelViewSet):
+    queryset = Tax.objects.all()
     serializer_class = TaxSerializer
+
+
+class BusinessModelViewSet(ModelViewSet):
+    queryset = BusinessModel.objects.all()
+    serializer_class = BusinessModelSerializer

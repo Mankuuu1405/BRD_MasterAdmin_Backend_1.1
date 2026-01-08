@@ -27,7 +27,9 @@ urlpatterns = [
 
     path("eligibility-score-management/", include("adminpanel.eligibility_score_management.urls")),
     
+    path("bank-funds-management/", include("adminpanel.bank_funds_management.urls")),
 
+    path("profile-management/", include("adminpanel.profile_management.urls")),
 
     path("access-control/", include("adminpanel.access_control.urls")),
     path("approval-master/", include("adminpanel.approval_master.urls")),
