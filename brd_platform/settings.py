@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     # Local apps
     "auth_service.accounts",
     "adminpanel.apps.AdminpanelConfig",
+    "adminpanel.access_control.apps.AccessControlConfig"
     
 ]
 

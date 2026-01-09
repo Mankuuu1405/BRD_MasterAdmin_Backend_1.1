@@ -13,7 +13,7 @@ class IsMasterAdmin(BasePermission):
         if not user or not user.is_authenticated:
             return False
 
-        return user.groups.filter(name="MASTER_ADMIN").exists()
+        return user.groups.filter(name="Master Admin").exists()
 
 class IsTenantAdmin(permissions.BasePermission):
     """
@@ -25,7 +25,7 @@ class IsTenantAdmin(permissions.BasePermission):
         if not user or not user.is_authenticated:
             return False
         # either explicit role
-        if getattr(user, 'role', None) in ('ADMIN', 'SUPER_ADMIN'):
+        if getattr(user, 'role', None) in ('ADMIN', 'SUPER_ADMIN', 'Master Admin'):
             return True
         return False
 
