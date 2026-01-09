@@ -27,10 +27,17 @@ class ApprovalMasterAdmin(admin.ModelAdmin):
 # ===============================
 @admin.register(ApprovalAssignment)
 class ApprovalAssignmentAdmin(admin.ModelAdmin):
-    list_display = ("tenant_id", "user_or_group", "status", "created_at")
-    list_filter = ("status",)
-    search_fields = ("tenant_id", "user_or_group")
+    list_display = (
+        "tenant_id",
+        "approver_type",
+        "user_id",
+        "status",
+        "created_at",
+    )
+    list_filter = ("approver_type", "status")
+    search_fields = ("tenant_id", "user_id")
     readonly_fields = ("created_at",)
+
 
 
 # ===============================
