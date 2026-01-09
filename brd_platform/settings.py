@@ -16,6 +16,9 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "dev-secret-key-change-me")
 DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 # -------------------------------------------------
 # APPLICATIONS
 # -------------------------------------------------
@@ -168,6 +171,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
     "http://localhost:5174",
     "http://127.0.0.1:5174",
+    "http://65.1.134.59:5173",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -177,6 +181,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5174",
     "http://127.0.0.1:5173",
     "http://127.0.0.1:5174",
+    "http://65.1.134.59:5173",
 ]
 
 
