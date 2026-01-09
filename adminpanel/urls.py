@@ -31,6 +31,8 @@ urlpatterns = [
 
     path("profile-management/", include("adminpanel.profile_management.urls")),
 
+    path("agent-management/", include("adminpanel.agent_management.urls")),
+
     path("access-control/", include("adminpanel.access_control.urls")),
     path("approval-master/", include("adminpanel.approval_master.urls")),
     path("home-dashboard/", include("adminpanel.home_dashboard.urls")),

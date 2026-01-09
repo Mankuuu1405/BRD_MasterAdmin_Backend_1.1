@@ -161,3 +161,6 @@ import adminpanel.product_revenue.product_mix_management.admin
 
 # ================= product management =================
 import adminpanel.product_revenue.product_management.admin
+
+# ================= template management =================
+import adminpanel.template_management.admin
