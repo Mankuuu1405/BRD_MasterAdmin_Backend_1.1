@@ -57,9 +57,8 @@ class FundType(models.Model):
 class Fund(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-    fund_type = models.ForeignKey(
-        FundType,
-        on_delete=models.PROTECT
+    fund_type = models.CharField(
+        max_length=100
     )
 
     fund_source = models.CharField(
