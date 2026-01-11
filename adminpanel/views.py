@@ -50,7 +50,7 @@ class LoginView(APIView):
             {
                 "access": str(refresh.access_token),
                 "refresh": str(refresh),
-                "role": "MASTER_ADMIN",
+                "role": "Master Admin",
             },
             status=status.HTTP_200_OK,
         )

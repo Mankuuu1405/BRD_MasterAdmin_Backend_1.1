@@ -13,7 +13,7 @@ class Fee(models.Model):
 
     name = models.CharField(max_length=100)  # Processing Fee, Documentation Fee
 
-    FEES_FREQUENCY_CHOICES = (
+    FEES_FREQUENCY_CHOICES = (  
         ("ONE_TIME", "One-time"),
         ("MONTHLY", "Monthly"),
         ("ANNUALLY", "Annually"),
